@@ -1,7 +1,8 @@
-<script>
 	import Counter from './Counter.svelte';
+<script lang="ts">
 	import welcome from '$lib/images/svelte-welcome.webp';
 	import welcome_fallback from '$lib/images/svelte-welcome.png';
+	import cute_dog from '$lib/images/img_1194.png';
 </script>
 
 <svelte:head>
@@ -27,6 +28,7 @@
 
 	<Counter />
 </section>
+<img src={cute_dog} alt="cutedog" class="w-200 h-400"/>
 
 <style>
 	section {
