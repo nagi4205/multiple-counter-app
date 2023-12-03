@@ -51,13 +51,13 @@ const changeTitle = (counterId: number, event: Event): void => {
 <div class="flex flex-col items-center">
 	{#each counters as counter (counter.id)}
 	<div class="w-80 xs:w-96 h-12 rounded border-solide bg-gray-100 shadow-xl flex items-center justify-between mb-4">
-		<input type="text" class="text-gray-500 mx-2 xs:mx-4 w-32" value={counter.title} on:input={(event) => changeTitle(counter.id, event)}>
-		<div class=" font-bold px-2">{counter.count}</div>
-			<div class="px-2">
-					<button on:click={() => increment(counter.id)} class="bg-red-500 rounded-l w-6 h-6 text-white" tabindex="-1">+</button>
-					<button on:click={() => decrement(counter.id)} class="bg-blue-500 w-6 h-6 text-white" tabindex="-1">-</button>
-					<button on:click={() => reset(counter.id)} class="bg-yellow-500 rounded-r w-6 h-6 text-white" tabindex="-1">0</button>
-					<button on:click={() => removeCounter(counter.id)} class="w-6 h-6 pl-2" tabindex="-1">×</button>
+		<input type="text" class="text-gray-500 xs:mx-4 w-32" value={counter.title} on:input={(event) => changeTitle(counter.id, event)}>
+		<div class=" font-bold xs:px-2">{counter.count}</div>
+			<div class="xs:px-2">
+					<button on:click={() => increment(counter.id)} class="bg-red-500 rounded-l w-8 h-8 text-white" tabindex="-1">+</button>
+					<button on:click={() => decrement(counter.id)} class="bg-blue-500 w-8 h-8 text-white" tabindex="-1">-</button>
+					<button on:click={() => reset(counter.id)} class="bg-yellow-500 rounded-r w-8 h-8 text-white" tabindex="-1">0</button>
+					<button on:click={() => removeCounter(counter.id)} class="w-8 h-8 xs:pl-2" tabindex="-1">×</button>
 			</div>
 	</div>
 	{/each}

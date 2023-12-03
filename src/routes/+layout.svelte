@@ -10,6 +10,5 @@
 		<main>
 			<slot />
 		</main>
-		<img src={cute_dog} alt="cutedog" class="w-200 h-400"/>
 	</div>
 </div>
