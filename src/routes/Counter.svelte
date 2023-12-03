@@ -1,102 +1,72 @@
 <script lang="ts">
-	import { spring } from 'svelte/motion';
 
-	let count = 0;
+type CounterType = {
+	id: number;
+	title: string;
+	count: number;
+};
 
-	const displayed_count = spring();
-	$: displayed_count.set(count);
-	$: offset = modulo($displayed_count, 1);
+let counters: CounterType[] = [{ id: 1, title: 'new', count: 0 }];
 
-	function modulo(n: number, m: number) {
-		// handle negative numbers
-		return ((n % m) + m) % m;
+const addCounter = (): void => {
+	const newId: number = counters.length > 0 ? Math.max(...counters.map(c => c.id)) + 1 : 1;
+	counters = [...counters, { id: newId, title: 'new', count: 0 }];
+}
+
+const removeCounter = (counterId: number): void => {
+	console.log(counterId);
+	counters = counters.filter(c => c.id !== counterId);
+}
+
+$: total = counters.reduce((sum: number, counter: CounterType) => sum + counter.count, 0);
+
+const increment = (counterId: number): void => {
+			const index = counters.findIndex(c => c.id === counterId);
+			counters[index].count += 1;
 	}
+
+const decrement = (counterId: number): void => {
+		const index = counters.findIndex(c => c.id === counterId);
+		if (counters[index].count > 0) counters[index].count -= 1;
+}
+
+const reset = (counterId: number): void => {
+		const index = counters.findIndex(c => c.id === counterId);
+		counters[index].count = 0;
+}
+
+const changeTitle = (counterId: number, event: Event): void => {
+	const inputElement = event.target as HTMLInputElement; // イベントのターゲットを HTMLInputElement としてキャスト
+	const index = counters.findIndex(c => c.id === counterId);
+	counters[index].title = inputElement.value;
+	// if(inputElement.value === '') {
+	// 	return;
+	// } else {
+	// 	const index = counters.findIndex(c => c.id === counterId);
+	// 	counters[index].title = inputElement.value;
+	// }
+}
 </script>
 
-<div class="counter">
-	<button on:click={() => (count -= 1)} aria-label="Decrease the counter by one">
-		<svg aria-hidden="true" viewBox="0 0 1 1">
-			<path d="M0,0.5 L1,0.5" />
-		</svg>
-	</button>
-
-	<div class="counter-viewport">
-		<div class="counter-digits" style="transform: translate(0, {100 * offset}%)">
-			<strong class="hidden" aria-hidden="true">{Math.floor($displayed_count + 1)}</strong>
-			<strong>{Math.floor($displayed_count)}</strong>
-		</div>
+<div class="flex flex-col items-center">
+	{#each counters as counter (counter.id)}
+	<div class="w-fit h-12 rounded border-solide bg-gray-100 shadow-xl flex items-center justify-between mb-2">
+		<input type="text" class="text-gray-500 mx-4 px-1 w-32" value={counter.title} on:input={(event) => changeTitle(counter.id, event)}>
+		<div class=" font-bold px-4">{counter.count}</div>
+			<div class="px-4">
+					<button on:click={() => increment(counter.id)} class="bg-red-500 rounded-l w-8 h-8 text-white" tabindex="-1">+</button>
+					<button on:click={() => decrement(counter.id)} class="bg-blue-500 w-8 h-8 text-white" tabindex="-1">-</button>
+					<button on:click={() => reset(counter.id)} class="bg-yellow-500 rounded-r w-8 h-8 text-white" tabindex="-1">0</button>
+					<button on:click={() => removeCounter(counter.id)} class="w-8 h-8 pl-4" tabindex="-1">×</button>
+			</div>
 	</div>
-
-	<button on:click={() => (count += 1)} aria-label="Increase the counter by one">
-		<svg aria-hidden="true" viewBox="0 0 1 1">
-			<path d="M0,0.5 L1,0.5 M0.5,0 L0.5,1" />
-		</svg>
-	</button>
+	{/each}
+	
+	<button class="max-w-sm w-80 rounded-md bg-green-400 text-white" on:click={addCounter} tabindex="-1">new counter</button>
+	
+	<div class="w-full text-center">
+		<!-- <div>title list: {counters.map(c => c.title).join(', ')}</div> -->
+		<div>title list: {counters.filter(c => c.title !== '').map(c => c.title).join(', ')}</div>
+		<div>sum of count: {total}</div>
+	</div>
 </div>
-
-<style>
-	.counter {
-		display: flex;
-		border-top: 1px solid rgba(0, 0, 0, 0.1);
-		border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-		margin: 1rem 0;
-	}
-
-	.counter button {
-		width: 2em;
-		padding: 0;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		border: 0;
-		background-color: transparent;
-		touch-action: manipulation;
-		font-size: 2rem;
-	}
-
-	.counter button:hover {
-		background-color: var(--color-bg-1);
-	}
-
-	svg {
-		width: 25%;
-		height: 25%;
-	}
-
-	path {
-		vector-effect: non-scaling-stroke;
-		stroke-width: 2px;
-		stroke: #444;
-	}
-
-	.counter-viewport {
-		width: 8em;
-		height: 4em;
-		overflow: hidden;
-		text-align: center;
-		position: relative;
-	}
-
-	.counter-viewport strong {
-		position: absolute;
-		display: flex;
-		width: 100%;
-		height: 100%;
-		font-weight: 400;
-		color: var(--color-theme-1);
-		font-size: 4rem;
-		align-items: center;
-		justify-content: center;
-	}
-
-	.counter-digits {
-		position: absolute;
-		width: 100%;
-		height: 100%;
-	}
-
-	.hidden {
-		top: -100%;
-		user-select: none;
-	}
-</style>
