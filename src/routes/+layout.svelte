@@ -1,6 +1,5 @@
 <script>
 	import Header from './Header.svelte';
-	import cute_dog from '$lib/images/img_1194.png';
 	import '../app.css';
 </script>
 
