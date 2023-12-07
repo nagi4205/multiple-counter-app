@@ -39,12 +39,6 @@ const changeTitle = (counterId: number, event: Event): void => {
 	const inputElement = event.target as HTMLInputElement; // イベントのターゲットを HTMLInputElement としてキャスト
 	const index = counters.findIndex(c => c.id === counterId);
 	counters[index].title = inputElement.value;
-	// if(inputElement.value === '') {
-	// 	return;
-	// } else {
-	// 	const index = counters.findIndex(c => c.id === counterId);
-	// 	counters[index].title = inputElement.value;
-	// }
 }
 </script>
 
@@ -65,7 +59,6 @@ const changeTitle = (counterId: number, event: Event): void => {
 	<button class="w-80 xs:w-96 rounded-md bg-green-400 text-white" on:click={addCounter} tabindex="-1">new counter</button>
 	
 	<div class="w-full text-center">
-		<!-- <div>title list: {counters.map(c => c.title).join(', ')}</div> -->
 		<div>title list: {counters.filter(c => c.title !== '').map(c => c.title).join(', ')}</div>
 		<div>sum of count: {total}</div>
 	</div>
