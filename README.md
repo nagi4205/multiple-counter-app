@@ -1,38 +1,34 @@
-# create-svelte
+# Svelte: Multiple Counter App
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+## はじめに
 
-## Creating a project
+デプロイという作業そのものが初めてでとても苦労しました。ネットの記事を見てアダプタを変更したり、amplify の設定で Base Directory を変更したりと
+まさに針の穴に糸を通すような作業の末、何とかデプロイを行いました。Svelte についても扱うのが初めてだったのですが、React を学習していたこともあり、コードを俯瞰して Svelte のおおよその全体像を掴むことができ、フロントエンドの知見を客観視するいい機会になりました。
 
-If you're seeing this, you've probably already done this step. Congrats!
+## サンプル画像
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+<!-- <div align="center"> -->
+  <img src="static/demo.png" alt="マルチカウンターアプリのスクリーンショット" width="30%"/>
+<!-- </div> -->
 
-# create a new project in my-app
-npm create svelte@latest my-app
-```
+## 実装機能
 
-## Developing
+- **カウンター機能**: デモサイトと同様に、個別のカウンターの増減やリセットが可能。
+- **複数カウンター**: カウンターの追加と削除機能。
+- **カウンタータイトル設定**: 各カウンターに名前を設定。
+- **合計カウント表示**: すべてのカウンター値の合計を表示。
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+## こだわりポイント
 
-```bash
-npm run dev
+- **レスポンシブデザイン**: 様々なデバイスに対応したレイアウト調整。
+- **tailwind**: 使い慣れた CSS フレームワークを採用。
+- **tabindex**: デモサイトを参考に tabindex=-1 をボタン要素に適用し、フォーカスする要素を限定。
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
+## 実装プロセス
 
-## Building
+- システム要件に沿ってローカルで開発。
+- GitHub にホストし、AWS Amplify でデプロイ。
 
-To create a production version of your app:
+## おわりに
 
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+まだ素人に毛の生えたレベルのスキル、知識しかありませんが、少しでも早く力をつけたいという思いで毎日コーディングを行なっています。
