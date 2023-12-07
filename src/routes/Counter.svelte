@@ -21,30 +21,24 @@ const removeCounter = (counterId: number): void => {
 $: total = counters.reduce((sum: number, counter: CounterType) => sum + counter.count, 0);
 
 const increment = (counterId: number): void => {
-			const index = counters.findIndex(c => c.id === counterId);
-			counters[index].count += 1;
+	const index = counters.findIndex(c => c.id === counterId);
+	counters[index].count += 1;
 	}
 
 const decrement = (counterId: number): void => {
-		const index = counters.findIndex(c => c.id === counterId);
-		if (counters[index].count > 0) counters[index].count -= 1;
+	const index = counters.findIndex(c => c.id === counterId);
+	if (counters[index].count > 0) counters[index].count -= 1;
 }
 
 const reset = (counterId: number): void => {
-		const index = counters.findIndex(c => c.id === counterId);
-		counters[index].count = 0;
+	const index = counters.findIndex(c => c.id === counterId);
+	counters[index].count = 0;
 }
 
 const changeTitle = (counterId: number, event: Event): void => {
-	const inputElement = event.target as HTMLInputElement; // イベントのターゲットを HTMLInputElement としてキャスト
+	const inputElement = event.target as HTMLInputElement;
 	const index = counters.findIndex(c => c.id === counterId);
 	counters[index].title = inputElement.value;
-	// if(inputElement.value === '') {
-	// 	return;
-	// } else {
-	// 	const index = counters.findIndex(c => c.id === counterId);
-	// 	counters[index].title = inputElement.value;
-	// }
 }
 </script>
 
@@ -54,10 +48,10 @@ const changeTitle = (counterId: number, event: Event): void => {
 		<input type="text" class="text-gray-500 mx-2 xs:mx-4 w-32" value={counter.title} on:input={(event) => changeTitle(counter.id, event)}>
 		<div class=" font-bold xs:px-2">{counter.count}</div>
 			<div class="xs:px-2">
-					<button on:click={() => increment(counter.id)} class="bg-red-500 rounded-l w-8 h-8 text-white" tabindex="-1">+</button>
-					<button on:click={() => decrement(counter.id)} class="bg-blue-500 w-8 h-8 text-white" tabindex="-1">-</button>
-					<button on:click={() => reset(counter.id)} class="bg-yellow-500 rounded-r w-8 h-8 text-white" tabindex="-1">0</button>
-					<button on:click={() => removeCounter(counter.id)} class="w-8 h-8 xs:pl-2" tabindex="-1">×</button>
+				<button on:click={() => increment(counter.id)} class="bg-red-500 rounded-l w-8 h-8 text-white" tabindex="-1">+</button>
+				<button on:click={() => decrement(counter.id)} class="bg-blue-500 w-8 h-8 text-white" tabindex="-1">-</button>
+				<button on:click={() => reset(counter.id)} class="bg-yellow-500 rounded-r w-8 h-8 text-white" tabindex="-1">0</button>
+				<button on:click={() => removeCounter(counter.id)} class="w-8 h-8 xs:pl-2" tabindex="-1">×</button>
 			</div>
 	</div>
 	{/each}
@@ -65,7 +59,6 @@ const changeTitle = (counterId: number, event: Event): void => {
 	<button class="w-80 xs:w-96 rounded-md bg-green-400 text-white" on:click={addCounter} tabindex="-1">new counter</button>
 	
 	<div class="w-full text-center">
-		<!-- <div>title list: {counters.map(c => c.title).join(', ')}</div> -->
 		<div>title list: {counters.filter(c => c.title !== '').map(c => c.title).join(', ')}</div>
 		<div>sum of count: {total}</div>
 	</div>
