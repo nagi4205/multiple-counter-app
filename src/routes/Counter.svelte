@@ -44,7 +44,7 @@ const changeTitle = (counterId: number, event: Event): void => {
 
 <div class="flex flex-col items-center">
 	{#each counters as counter (counter.id)}
-	<div class="w-80 xs:w-96 h-12 rounded border-solide bg-gray-100 shadow-xl flex items-center justify-between mb-4">
+	<div class="w-80 xs:w-96 h-12 rounded border-solid bg-gray-100 shadow-xl flex items-center justify-between mb-4">
 		<input type="text" class="text-gray-500 mx-2 xs:mx-4 w-32" value={counter.title} on:input={(event) => changeTitle(counter.id, event)}>
 		<div class=" font-bold xs:px-2">{counter.count}</div>
 			<div class="xs:px-2">
