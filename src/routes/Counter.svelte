@@ -14,7 +14,6 @@ const addCounter = (): void => {
 }
 
 const removeCounter = (counterId: number): void => {
-	console.log(counterId);
 	counters = counters.filter(c => c.id !== counterId);
 }
 
