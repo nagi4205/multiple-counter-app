@@ -1,4 +1,5 @@
 <script lang="ts">
+import Button from './CustomButton.svelte';
 
 type CounterType = {
 	id: number;
@@ -48,10 +49,10 @@ const changeTitle = (counterId: number, event: Event): void => {
 		<input type="text" class="text-gray-500 mx-2 xs:mx-4 w-32" value={counter.title} on:input={(event) => changeTitle(counter.id, event)}>
 		<div class=" font-bold xs:px-2">{counter.count}</div>
 			<div class="xs:px-2">
-					<button on:click={() => increment(counter.id)} class="bg-red-500 rounded-l w-8 h-8 text-white" tabindex="-1">+</button>
-					<button on:click={() => decrement(counter.id)} class="bg-blue-500 w-8 h-8 text-white" tabindex="-1">-</button>
-					<button on:click={() => reset(counter.id)} class="bg-yellow-500 rounded-r w-8 h-8 text-white" tabindex="-1">0</button>
-					<button on:click={() => removeCounter(counter.id)} class="w-8 h-8 xs:pl-2" tabindex="-1">×</button>
+        <Button label="+" onClick={() => increment(counter.id)} className="bg-red-500 rounded-l text-white" />
+        <Button label="-" onClick={() => decrement(counter.id)} className="bg-blue-500 text-white"/>
+        <Button label="0" onClick={() => reset(counter.id)} className="bg-yellow-500 rounded-r text-white"/>
+        <Button label="×" onClick={() => removeCounter(counter.id)} className="xs:pl-2 text-black"/>
 			</div>
 	</div>
 	{/each}
