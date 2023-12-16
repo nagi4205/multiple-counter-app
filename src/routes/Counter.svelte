@@ -36,9 +36,13 @@ const reset = (counterId: number): void => {
 }
 
 const changeTitle = (counterId: number, event: Event): void => {
-	const inputElement = event.target as HTMLInputElement; // イベントのターゲットを HTMLInputElement としてキャスト
-	const index = counters.findIndex(c => c.id === counterId);
-	counters[index].title = inputElement.value;
+  if(event.target instanceof HTMLInputElement) {
+    const inputElement = event.target;
+    const index = counters.findIndex(c => c.id === counterId);
+    counters[index].title = inputElement.value;
+  } else {
+    throw new Error('event.target is not HTMLInputElement');
+  }
 }
 </script>
 
